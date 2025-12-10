@@ -5,8 +5,8 @@ export const addprojects = async (req, res) => {
     try {
         const { pName, pDescription } = req.body;
 
-        const pImage = `${req.protocol}://${req.get("host")}/${req.file.path.replace(/\\/g, "/")}`;
-
+        // const pImage = `${req.protocol}://${req.get("host")}/${req.file.path.replace(/\\/g, "/")}`;
+        const pImage = req.file?.path;
         const newProject = await Projects.create({ pImage, pName, pDescription });
 
         res.status(201).json({ message: "Project added successfully", project: newProject, });
