@@ -5,10 +5,7 @@ export const addclients = async (req, res) => {
     try {
         const {  name, description, designation } = req.body;
 
-
-        const image = req.file
-      ? `http://localhost:5000/uploads/${req.file.filename}` 
-      : req.body.image || null;
+const image = `${req.protocol}://${req.get("host")}/${req.file.path.replace(/\\/g, "/")}`;
 
         const newClient = await Client.create({ image, name, description, designation, });
 

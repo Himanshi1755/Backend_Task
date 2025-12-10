@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
 import {addclients , getAllClients } from "../controllers/clientController.js";
+import { uploadClient } from "../middleware/multer.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
-router.post("/", upload.single("image"), addclients);
+router.post("/", uploadClient.single("image"), addclients);
 router.get("/",  getAllClients);
 
 export default router;

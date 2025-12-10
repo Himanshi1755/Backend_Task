@@ -4,13 +4,10 @@ import { Projects } from "../models/projectModel.js";
 export const addprojects = async (req, res) => {
     try {
         const { pName, pDescription } = req.body;
-    
-    const pImage = req.file
-  ? `http://localhost:5000/uploads/${req.file.filename}`
-  : req.body.pImage || null;
 
-      
-        const newProject = await Projects.create({ pImage ,pName , pDescription });
+        const pImage = `${req.protocol}://${req.get("host")}/${req.file.path.replace(/\\/g, "/")}`;
+
+        const newProject = await Projects.create({ pImage, pName, pDescription });
 
         res.status(201).json({ message: "Project added successfully", project: newProject, });
 
